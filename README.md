@@ -13,7 +13,6 @@ Drop in a CSV file and describe what you want to forecast. CastClaw orchestrates
 ## 🗞️ News
 
 **[2026-04-02]** CastClaw open-sourced with complete documentation and multi-provider LLM support.  
-**[2026-03-19]** Five-stage forecasting pipeline with automatic agent coordination and session memory.
 
 ## What makes CastClaw different
 
