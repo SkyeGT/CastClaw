@@ -1,9 +1,166 @@
 # CastClaw
 
-This repository is currently trimmed to the CastClaw TUI and browser app.
+![CastClaw Logo](./logo/logo.png)
 
-- TUI source lives in `packages/castclaw`.
-- Browser app source lives in `packages/app`.
-- Supporting shared/backend packages remain for the existing runtime, API, and data flow.
-- Issue feedback is handled through GitHub: <https://github.com/SkyeGT/CastClaw/issues>.
+[Homepage](https://agentr1.github.io/cast-claw/index.html) · [GitHub Repo](https://github.com/SkyeGT/CastClaw) · English · [中文](./docs/zh/usage.md)
 
+**Automated. Multi-agent. Fully interactive.**
+
+Drop in a CSV file and describe what you want to forecast. CastClaw orchestrates three specialized agents across your data—planning task definitions, running parallel model experiments, and generating comparative reports. Built-in reflection learns from each session and grows smarter as you use it.
+
+![CastClaw Architecture](https://img.shields.io/badge/TUI%20%2B%20CLI-Ready-green) ![Python ML Backend](https://img.shields.io/badge/Python%203.10+-Compatible-blue) ![License](https://img.shields.io/badge/License-MIT-yellow)
+
+## 🗞️ News
+
+**[2026-04-02]** CastClaw open-sourced with complete documentation and multi-provider LLM support.  
+**[2026-03-19]** Five-stage forecasting pipeline with automatic agent coordination and session memory.
+
+## What makes CastClaw different
+
+🗂️ **It plans before it acts**  
+Before running any models, CastClaw drafts a step-by-step forecasting plan and shows it to you. Reorder steps, add domain constraints, then approve—nothing touches your data without explicit consent.
+
+📊 **It runs agents in parallel**  
+Upload multiple tables or ask comparative questions. CastClaw automatically assigns a dedicated Forecaster agent to each dataset, runs them in parallel, then synthesizes findings—highlighting where predictions align ([CONSENSUS]) and where they diverge ([UNCERTAIN]).
+
+🤖 **It coordinates three specialized agents**  
+- **Planner** — Defines tasks, analyzes data trends & seasonality, generates model recommendations  
+- **Forecaster** — Runs 30+ time-series models in parallel experiments with per-trial reflection  
+- **Critic** — Compares results, builds interactive visualizations, distills final reports
+
+🧠 **It learns from every session**  
+After each forecasting task, CastClaw reflects on what worked and encodes the pattern into a reusable custom skill. Next time you ask something similar, it calls that skill directly—your personal forecasting assistant gets smarter every time.
+
+💾 **It remembers your preferences**  
+Captures your domain terminology, preferred metrics, output format, and evaluation priorities across sessions. Every conversation builds on what it learned from your previous work.
+
+🛠️ **It extends with custom skills**  
+Write your own skills—prompt templates or embedded Python/SQL logic—and the agents will call them just like built-in skills. Combined with session learning, CastClaw builds a library tailored to your forecasting workflows.
+
+📦 **It manages full experiment lifecycle**  
+From automated data preprocessing → parallel model training → metric evaluation → constraint satisfaction → visual report generation. Everything is tracked: run logs, eval metrics, failure histories, and performance comparisons.
+
+⏸️ **It integrates human-in-the-loop feedback**  
+Mid-experiment, pause and inject domain knowledge: *"The last 30 days show overfitting—try a smaller look-back window."* Forecaster resets counters and adapts the next trial accordingly. No more black-box automation.
+
+## Quick Start
+
+```bash
+# Clone and install
+git clone https://github.com/SkyeGT/CastClaw.git
+cd CastClaw
+bun install
+cd python && uv sync && cd ..
+
+# Build CLI
+bun run --cwd packages/castclaw build
+
+# Start forecasting
+cd /path/to/your/dataset/project
+castclaw
+```
+
+Launch TUI, switch agents with `Ctrl+1/2/3`, and begin:
+
+```
+Start with Planner (Ctrl+1):
+"Define a forecasting task for my energy consumption data:
+ - Target: Load  
+ - Horizon: 96 steps ahead  
+ - Look-back: 336 steps  
+ - Split: 70/15/15 train/val/test"
+```
+
+## 📋 Requirements
+
+| Dependency | Version | Purpose |
+|---|---|---|
+| [Bun](https://bun.sh) | ≥ 1.3.11 | Runtime & package manager |
+| [Python](https://python.org) | ≥ 3.10 | ML backend for time-series models |
+| [uv](https://docs.astral.sh/uv/) | Latest | Python dependency management |
+| GPU (optional) | CUDA 12.8 | Deep learning model acceleration |
+
+## 🤖 Supported Models (30+)
+
+**Statistical:** ARIMA, ETS, Theta  
+**Deep Learning:** DLinear, NLinear, PatchTST, TimesNet, iTransformer, Autoformer, …  
+**Foundation Models:** Chronos (Amazon), TimesFM (Google), Moirai (Salesforce)
+
+## 🔧 Configuration
+
+Create `castclaw.json` in your project root:
+
+```jsonc
+{
+  "model": "anthropic/claude-sonnet-4-5",
+  "skills": {
+    "paths": ["~/.my-skills/"]
+  }
+}
+```
+
+**LLM Providers:** Supports 20+ via Vercel AI SDK (Anthropic, OpenAI, Google, OpenRouter, …)
+
+```bash
+export ANTHROPIC_API_KEY=sk-ant-...
+# or use OPENAI_API_KEY, GOOGLE_GENERATIVE_AI_API_KEY, etc.
+```
+
+## 🎯 Five-Stage Workflow
+
+```
+Stage 1 (Planner)    → Task definition & data ingestion
+        ↓
+Stage 2 (Planner)    → Qualitative & quantitative pre-analysis
+        ↓
+Stage 3 (Planner)    → Model skill generation & review
+        ↓
+Stage 4 (Forecaster) → Parallel experiment loops + HITL feedback
+        ↓
+Stage 5 (Critic)     → Final report, visualizations, comparisons
+```
+
+## 📚 Documentation
+
+- **[Full Chinese Guide](./docs/zh/usage.md)** — Complete usage, workflow, skills reference  
+- **[English Guide](./docs/en/usage.md)** — Full documentation in English  
+- **[Report Issues](https://github.com/SkyeGT/CastClaw/issues)** — GitHub Issues
+
+## 📂 Repository Structure
+
+```
+CastClaw/
+├── packages/castclaw/    # TUI & CLI core
+├── packages/app/         # Browser web interface
+├── packages/sdk/         # SDK & runtime
+├── python/               # ML backend (30+ models)
+├── docs/                 # Usage guides
+└── infra/                # Infrastructure (SST)
+```
+
+## 🏆 Key Differentiators
+
+| Feature | CastClaw | Traditional Tools |
+|---------|----------|-------------------|
+| Pre-experiment planning | ✅ Show plan before execution | ❌ Execute immediately |
+| Multi-table parallelism | ✅ Automatic per-table agents | ❌ Sequential analysis |
+| Session learning | ✅ Distill skills from interactions | ❌ Stateless |
+| Human-in-the-loop | ✅ Pause & inject domain feedback | ❌ Fully automated |
+| Constraint management | ✅ CAST.md for rules & limits | ❌ Manual enforcement |
+
+## 🤝 Contributing
+
+Contributions welcome! Please open issues and PRs on [GitHub](https://github.com/SkyeGT/CastClaw).
+
+## 📄 License
+
+MIT License — see [LICENSE](./LICENSE)
+
+## 📫 Contact
+
+- **Issues & Feedback:** [GitHub Issues](https://github.com/SkyeGT/CastClaw/issues)
+- **Documentation:** [Usage Guide](./docs/zh/usage.md)
+
+---
+
+**Made with ❤️ by the CastClaw team**
