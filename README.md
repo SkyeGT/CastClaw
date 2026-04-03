@@ -2,7 +2,7 @@
 
 ![CastClaw Logo](./logo/logo.png)
 
-[Homepage](https://agentr1.github.io/cast-claw/index.html) · [GitHub Repo](https://github.com/SkyeGT/CastClaw) · English · [中文](./docs/zh/usage.md)
+[Homepage](https://agentr1.github.io/cast-claw/index.html) · [GitHub Repo](https://github.com/SkyeGT/CastClaw) · English · [中文](./README_zh.md)
 
 **Automated. Multi-agent. Fully interactive.**
 
