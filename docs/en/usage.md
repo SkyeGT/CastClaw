@@ -38,36 +38,63 @@ Castclaw is a CLI-based AI agent framework for automated time-series forecasting
 
 ## Installation
 
+**Option A: npm (recommended)**
+
 ```bash
 npm install -g castclaw
+```
+
+**Option B: Build from source**
+
+```bash
+git clone https://github.com/ustc-time-series/CastClaw.git
+cd CastClaw
+
+bun install
+
+cd python
+uv sync
+cd ..
+
+bun run --cwd packages/castclaw build
+
+# (Optional) Link the binary globally
+bun link --cwd packages/castclaw
 ```
 
 After installation, verify the setup:
 
 ```bash
 castclaw --version
+cd python && uv run python -c "from castclaw_ml import runner; print('OK')"
 ```
 
 ---
 
 ## Quick Start
 
-1. Start the interactive TUI from any project directory:
+1. Start the interactive TUI from your dataset directory:
 
 ```bash
-cd /path/to/your/dataset/project
+cd /path/to/your/dataset
 castclaw
+
+# Or pass a model explicitly
+castclaw --model anthropic/claude-sonnet-4-6
 ```
 
 2. The TUI opens three tabs — **Planner**, **Forecaster**, and **Critic** — corresponding to the three research phases.
 
 3. Switch between agents with `Ctrl+1`, `Ctrl+2`, `Ctrl+3`.
 
-4. Begin a forecasting session in the **Planner** tab:
+4. Begin a forecasting session in the **Planner** tab, for example:
 
 ```
-Define a forecasting task for my energy consumption dataset.
+Initialize a forecasting session for data/etth1.csv. Target: OT, time column: date,
+horizon: 96 steps, lookback: 336. Use a 70/20/10 train/val/test split. Evaluate with MSE and MAE.
 ```
+
+Sample dataset (`datasets.zip`) on Google Drive: <https://drive.google.com/file/d/1HOCE20FQgLl0xCv_dOmLcTbN1RCZWwqd/view>
 
 ---
 
@@ -312,7 +339,7 @@ Castclaw reads configuration from `castclaw.json` at your project root (JSONC fo
 ```jsonc
 {
   // LLM provider and model
-  "model": "anthropic/claude-sonnet-4-5",
+  "model": "anthropic/claude-sonnet-4-6",
 
   // Additional skill scan paths
   "skills": {
@@ -349,7 +376,7 @@ export OPENROUTER_API_KEY=...
 Then specify the model in `castclaw.json` or at startup:
 
 ```bash
-castclaw --model openai/gpt-4o
+castclaw --model anthropic/claude-sonnet-4-6
 ```
 
 Provider prefix format: `<provider>/<model-id>` (e.g., `anthropic/claude-opus-4-6`, `google/gemini-2.0-flash`).
