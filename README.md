@@ -204,6 +204,8 @@ MIT License — see [LICENSE](./LICENSE)
 
 - **Issues & Feedback:** [GitHub Issues](https://github.com/SkyeGT/CastClaw/issues)
 - **Documentation:** [English](./docs/en/usage.md) · [Chinese](./docs/zh/usage.md)
+- **WeChat：**![CastClaw Logo](./logo/feedback.jpg)
+
 
 ## Acknowledgments
 

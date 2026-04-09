@@ -205,6 +205,7 @@ MIT License — 详见 [LICENSE](./LICENSE)
 
 - **问题与反馈：** [GitHub Issues](https://github.com/SkyeGT/CastClaw/issues)
 - **文档：** [English](./docs/en/usage.md) · [中文](./docs/zh/usage.md)
+- **微信：**![CastClaw Logo](./logo/feedback.jpg)
 
 ## 致谢
 
