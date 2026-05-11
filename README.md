@@ -14,6 +14,12 @@ Drop in a CSV file and describe what you want to forecast. CastClaw orchestrates
 
 ## 🗞️ News
 
+**[2026-04-30]** CastClaw 1.2.1 released: Critic Agent now automatically exports the best model file, parameters, and related artifacts as a reusable workflow.
+
+**[2026-04-22]** CastClaw 1.2.0 released with Auto mode, Hugging Face mirror support for foundation models such as Chronos, and UI updates.
+
+**[2026-04-17]** Demo video recorded.
+
 **[2026-03-31]** CastClaw open-sourced with complete documentation and multi-provider LLM support.  
 
 ## What makes CastClaw different
